@@ -1,0 +1,68 @@
+.payment-card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.payment-details {
+  margin-bottom: 20px;
+}
+
+.payment-details label {
+  font-weight: bold;
+}
+
+.payment-input {
+  margin-bottom: 10px;
+}
+
+.payment-input input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.payment-amount {
+  margin-bottom: 10px;
+}
+
+.payment-medium {
+  margin-bottom: 10px;
+}
+
+.payment-medium select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.payment-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.view-bill-button,
+.submit-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #0078d0;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.view-bill-button:hover,
+.submit-button:hover {
+  background-color: #005aa6;
+  transform: translateY(-2px);
+}

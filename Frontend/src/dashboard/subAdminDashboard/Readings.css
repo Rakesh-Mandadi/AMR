@@ -1,0 +1,88 @@
+.readings-container {
+  padding: 20px;
+}
+
+.radio-buttons {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.radio-buttons label {
+  margin-right: 20px;
+  font-size: 16px;
+}
+
+.radio-buttons input[type="radio"] {
+  margin-right: 5px;
+}
+
+.search-bars {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.search-bars input {
+  padding: 5px;
+  font-size: 14px;
+}
+
+.SearchBarInput-readings{
+  width: 177px;
+}
+
+/* Light Mode */
+.light-mode .readings-gas-table,
+.light-mode .readings-electricity-table,
+.light-mode .readings-water-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.light-mode .readings-gas-table th,
+.light-mode .readings-electricity-table th,
+.light-mode .readings-water-table th,
+.light-mode .readings-gas-table td,
+.light-mode .readings-electricity-table td,
+.light-mode .readings-water-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.light-mode .readings-gas-table th,
+.light-mode .readings-electricity-table th,
+.light-mode .readings-water-table th {
+  background-color: #f0f0f0;
+  border-top: 1px solid rgb(198, 197, 197);
+}
+
+/* Dark Mode */
+.dark-mode .readings-gas-table,
+.dark-mode .readings-electricity-table,
+.dark-mode .readings-water-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.dark-mode .readings-gas-table th,
+.dark-mode .readings-electricity-table th,
+.dark-mode .readings-water-table th,
+.dark-mode .readings-gas-table td,
+.dark-mode .readings-electricity-table td,
+.dark-mode .readings-water-table td {
+  border: 1px solid #31363F;
+  padding: 8px;
+  text-align: left;
+}
+
+.dark-mode .readings-gas-table th,
+.dark-mode .readings-electricity-table th,
+.dark-mode .readings-water-table th {
+  background-color: #3C3F45;
+  color: #ECECEC;
+  border-top: 1px solid rgb(198, 197, 197);
+}

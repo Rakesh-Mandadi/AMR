@@ -1,0 +1,201 @@
+.AddBuildingPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: white;
+  width: 100%;
+}
+
+.AddBuilding {
+  flex: 1;
+  padding: 30px;
+  height: max-content;
+  margin-bottom: 20px;
+  width: 60vh;
+}
+
+.AddBuildingForm{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.AddBuilding_element {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  position: static;
+  width: 90%;
+  margin: 2px 2px 15px 4px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.AddBuildingFormElementLabels {
+  font-size: 0.75rem;
+  font-weight: 700;
+  position: relative;
+  top: 0.5rem;
+  margin: 0 0 0 7px;
+  padding: 0 3px;
+  width: fit-content;
+}
+
+.AddBuildingFormElementInputs {
+  padding: 11px 10px;
+  font-size: 0.75rem;
+  border-radius: 5px;
+}
+
+.BuildingForm {
+  padding: 10px;
+}
+
+.BuildingsList {
+  margin-top: 20px;
+}
+
+.BuildingDetails {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.AddBuildingForm_button:hover {
+  box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
+}
+
+.AddBuildingForm_button {
+  background-color: #c2fbd7;
+  border-radius: 100px;
+  box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+  color: green;
+  cursor: pointer;
+  display: inline-block;
+  font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.errorMsg {
+  color: red;
+  font-size: 13px;
+  padding-top: 5px;
+  padding-left: 5px;
+}
+
+.dark-mode {
+  --background-color: #222831;
+  --text-color: #ffffff;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.light-mode {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Light mode */
+.light-mode .AddBuildingPage {
+  background-color: white;
+  color: black;
+}
+
+.light-mode .AddBuilding {
+  background-color: #f6f5f5;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.light-mode .AddBuildingForm {
+  background-color: #f6f5f5;
+}
+
+.light-mode .AddBuildingFormElementInputs {
+  background-color: #f6f5f5;
+  color: #000000;
+  border: 2px #4f306d solid;
+}
+
+.light-mode .AddBuildingFormElementLabels{
+  background-color:#f6f5f5 ;
+}
+
+.light-mode .AddBuildingFormElementInputs::placeholder {
+  color: #999999;
+}
+
+
+.light-mode .AddBuildingFormElementLabels {
+  color: #333333;
+}
+
+.light-mode .BuildingForm {
+  background-color: #f6f5f5;
+}
+
+.light-mode .BuildingDetails {
+  background-color: #f6f5f5;
+}
+
+/*Dark Mode*/
+.dark-mode .pathway{
+  color: #76abae ;
+}
+
+.dark-mode .AddBuildingPage {
+  background-color: #222831;
+  border-radius: 10px;
+}
+
+.dark-mode .AddBuilding {
+  background-color: #222831;
+  box-shadow: 0 4px 8px 0 rgba(132, 132, 132, 0.2), 0 6px 20px 0 rgba(148, 148, 148, 0.19);
+}
+
+.dark-mode .AddBuildingForm {
+  background-color: #222831;
+}
+
+.dark-mode .AddBuildingFormElementInputs {
+  background-color: #222831;
+  color: #ffffff;
+  border: 2px #d9c8f1 solid;
+}
+
+.dark-mode .AddBuildingFormElementLabels {
+  background-color: #222831;
+}
+
+.dark-mode .AddBuildingFormElementInputs::placeholder {
+  color: #aaaaaa;
+}
+
+.dark-mode .AddBuildingFormElementLabels {
+  color: #dddddd;
+}
+
+.dark-mode .BuildingForm {
+  background-color: #222831;
+  color: white;
+}
+
+.dark-mode .BuildingDetails {
+  background-color: #222831;
+  color:white;
+}

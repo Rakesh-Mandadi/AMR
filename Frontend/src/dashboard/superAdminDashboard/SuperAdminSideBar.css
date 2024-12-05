@@ -1,0 +1,118 @@
+
+.sidebar {
+  scrollbar-width: none;
+  width: 280px; 
+  float: left;
+  padding: 25px 20px 0px 20px;
+  overflow-y: auto;
+  overflow-x: hidden; 
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s ease-in-out, background-color 0.3s, color 0.3s;
+  position: fixed;
+  z-index: 200;
+}
+
+
+
+.logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo img {
+  max-width: 100%;
+  border-radius: 50%;
+  padding-bottom: 5px;
+  width:50%;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar nav ul {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+}
+
+.sidebar nav ul li {
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+}
+
+.sidebar nav ul li:hover{
+  transition: 0.4s;
+}
+
+.sidebar nav ul li a {
+  padding: 10px 15px;
+  text-decoration: none;
+  display: block;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.sidebar nav ul li:hover,
+.sidebar nav ul li a:hover,
+.dropdown-toggle:hover {
+  transform: translateX(5px);
+  background-position: left;
+}
+
+
+
+
+/* Light mode */
+.light-mode .sidebar {
+  background: linear-gradient(90deg, #b3b0f0, #8f86cc);
+  color: rgb(177, 176, 176);
+}
+
+.light-mode .sidebar nav ul li:hover,
+.light-mode .sidebar nav ul li a:hover,
+.light-mode .dropdown-toggle:hover {
+  color: white;
+}
+
+.light-mode .sidebar nav ul li {
+  color: white;
+}
+
+.light-mode .sidebar nav ul li a {
+  color: white;
+}
+
+.light-mode.active-link {
+  background-color: #8f86cc;
+  color: white; 
+  font-weight: bold; 
+}
+
+
+
+/* Dark mode */
+.dark-mode .sidebar {
+  background: linear-gradient(270deg, #31363F, #0f0c12);
+  color: #76abae;
+}
+
+.dark-mode .sidebar nav ul li {
+  color: #76abae;
+  border-bottom: 1px #b3b0f0;
+}
+
+.dark-mode .sidebar nav ul li a {
+  color: #76abae;
+}
+
+
+
+

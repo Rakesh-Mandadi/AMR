@@ -1,0 +1,104 @@
+.generate-bills-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px auto;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  width: 100%;
+}
+
+.generate-bills-container .select-container {
+  flex: 1;
+  margin-right: 10px;
+  width: 50%;
+}
+
+.generate-bills-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  width: fit-content;
+  float: left;
+}
+
+.generate-bills-container select {
+  width: 50%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+.generate-bills-container .error {
+  color: red;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.GenerateBills-button{
+  width: 100%;
+  padding: 10px;
+  justify-content: center;
+}
+
+.BlueButton{
+  margin: 2px;
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #0078d0; 
+  color: #fff; 
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.BlueButton:hover{
+  background-color: #005aa6; 
+  transform: translateY(-2px);
+}
+
+/* Light Mode */
+.light-mode .generateBills-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.light-mode .generateBills-table th,
+.light-mode .generateBills-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.light-mode .generateBills-table th{
+  background-color: #f0f0f0;
+  border-top: 1px solid rgb(198, 197, 197);
+}
+
+/* Dark Mode */
+.dark-mode .generateBills-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.dark-mode .generateBills-table .th,
+.dark-mode .generateBills-table .td{
+  border: 1px solid #31363F;
+  padding: 8px;
+  text-align: left;
+}
+
+.dark-mode .generateBills-table th{
+  background-color: #31363F;
+  border-top: 1px solid #31363F;
+  color: #bddce0;
+}

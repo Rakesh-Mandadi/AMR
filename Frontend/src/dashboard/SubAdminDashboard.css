@@ -1,0 +1,318 @@
+header {
+  padding: 10px;
+  margin-top: 10px;
+  background-color: inherit;
+}
+
+main {
+  padding: 20px;
+  background-color: inherit;
+  height: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.buildings-table,
+.totalFlats-table,
+.totalMeters-table {
+  margin-top: 20px;
+  /* height: 409px; */
+  overflow-y: auto;
+}
+
+.buildings-table table,
+.totalFlats-table table,
+.totalMeters-table table {
+  border: 1px solid rgb(198, 197, 197);
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.buildings-table th,
+.totalFlats-table th,
+.totalMeters-table th {
+  background-color: #f0f0f0;
+  border-bottom: 1px solid rgb(198, 197, 197);
+  border-top: 1px solid rgb(198, 197, 197);
+  position: sticky;
+  top: 0;
+}
+
+.buildings-table th,
+.buildings-table td,
+.totalFlats-table th,
+.totalFlats-table td,
+.totalMeters-table th,
+.totalMeters-table td {
+  padding: 8px;
+  text-align: right;
+  border-bottom: 1px solid rgb(198, 197, 197);
+}
+
+.buildings-table tr:hover,
+.totalFlats-table tr:hover,
+.totalMeters-table tr:hover {
+  background-color: #fbf9f9; 
+}
+
+.flashcardCount {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.flashcard p {
+  margin: 0;
+  padding: 0;
+  align-self: flex-start;
+  justify-self: flex-start;
+  width: 100%;
+}
+
+/* Light Mode */
+.light-mode {
+  background-color: #f6f5f5;
+}
+
+.light-mode .sub-admin-dashboard {
+  background-color: white;
+  color: black;
+}
+
+.light-mode .content {
+  background-color: white;
+  color: black;
+}
+
+.light-mode header {
+  background-color: white;
+  color: black;
+}
+
+.light-mode main {
+  background-color: white;
+  color: black;
+}
+
+.light-mode .buildings-table,
+.light-mode .totalFlats-table,
+.light-mode .totalMeters-table {
+  margin-top: 20px;
+  /* height: 409px; */
+  overflow-y: auto;
+}
+
+.light-mode .buildings-table table,
+.light-mode .totalFlats-table table,
+.light-mode .totalMeters-table table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid rgb(198, 197, 197);
+}
+
+.light-mode .buildings-table th,
+.light-mode .totalFlats-table th,
+.light-mode .totalMeters-table th,
+.light-mode .buildings-table td,
+.light-mode .totalFlats-table td,
+.light-mode .totalMeters-table td{
+  padding: 14px;
+  text-align: left;
+  border-bottom: 1px solid rgb(198, 197, 197);
+}
+
+.light-mode .buildings-table th,
+.light-mode .totalFlats-table th,
+.light-mode .totalMeters-table th {
+  background-color: #f0f0f0;
+  border-top: 1px solid rgb(198, 197, 197);
+}
+
+
+.light-mode .buildings-table tr:hover,
+.light-mode .totalFlats-table tr:hover,
+.light-mode .totalMeters-table tr:hover {
+  background-color: #fbf9f9;
+}
+
+/* Dark Mode */
+.dark-mode .sub-admin-dashboard {
+  background-color: #222831;
+  color: white;
+}
+
+.dark-mode .content {
+  height: 100vh;
+  background-attachment: fixed;
+  background-color: #222831;
+  color: white;
+}
+
+.dark-mode header {
+  background-color: #222831;
+  color: white;
+}
+
+.dark-mode main {
+  background-color: #222831;
+  color: white;
+}
+
+.dark-mode .buildings-table,
+.dark-mode .totalFlats-table,
+.dark-mode .totalMeters-table {
+  margin-top: 20px;
+  /* height: 409px; */
+  overflow-y: auto;
+}
+
+.dark-mode .buildings-table table,
+.dark-mode .totalFlats-table table,
+.dark-mode .totalMeters-table table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #31363F;
+}
+
+.dark-mode .buildings-table th,
+.dark-mode .totalFlats-table th,
+.dark-mode .totalMeters-table th,
+.dark-mode .buildings-table td,
+.dark-mode .totalFlats-table td,
+.dark-mode .totalMeters-table td {
+  padding: 14px;
+  text-align: left;
+  border-bottom: 1px solid #31363F;
+}
+
+.dark-mode .buildings-table th,
+.dark-mode .totalFlats-table th,
+.dark-mode .totalMeters-table th {
+  background-color: #31363F;
+  border-top: 1px solid #31363F;
+  color: #bddce0;
+}
+
+
+.dark-mode .buildings-table tr:hover,
+.dark-mode .totalFlats-table tr:hover,
+.dark-mode .totalMeters-table tr:hover {
+  background-color: #2c2f3e;
+}
+
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+/* New Table Styles */
+.new-table-container {
+  margin: 20px 0;
+  overflow-x: auto;
+}
+
+.new-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #f9f9f9;
+}
+
+.new-table th,
+.new-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.new-table th {
+  background-color: #4CAF50;
+  color: rgb(0, 0, 0);
+}
+
+.new-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.new-table tbody tr:hover {
+  background-color: #ddd;
+}
+
+.new-table th:first-child,
+.new-table td:first-child {
+  text-align: center;
+}
+
+.new-table .action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.new-table .update_button,
+.new-table .delete_button {
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.new-table .update_button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.new-table .delete_button {
+  background-color: #f44336;
+  color: white;
+}
+
+.new-table .update_button:hover {
+  background-color: #45a049;
+}
+
+.new-table .delete_button:hover {
+  background-color: #e60000;
+}
+
+/* Popup Styles */
+.update-popup,
+.delete-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.update-popup p,
+.delete-popup p {
+  margin-bottom: 15px;
+}
+
+.update-popup input,
+.delete-popup input {
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+}
+
+.update-popup button,
+.delete-popup button {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.update-popup button:first-child,
+.delete-popup button:first-child {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.update-popup button:last-child,
+.delete-popup button:last-child {
+  background-color: #f44336;
+  color: white;
+}

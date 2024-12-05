@@ -1,0 +1,119 @@
+.bill-view {
+    width: 600px;
+    margin: auto;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  .header {
+    /* text-align: center; */
+    background-color: bisque;
+  }
+  
+  .company-info {
+    text-align: right;
+  }
+  
+  .bill-details, .meter-information, .bill-summary, .reminders {
+    margin: 20px 0;
+  }
+  
+  .left-section, .right-section {
+    display: inline-block;
+    vertical-align: top;
+  }
+  
+  .left-section {
+    width: 50%;
+    text-align: left;
+  }
+  
+  .right-section {
+    width: 50%;
+    text-align: right;
+  }
+  
+  .meter-information table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .meter-information th, .meter-information td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .bill-summary {
+    background-color: #e1f1ff;
+    padding: 10px;
+  }
+  
+  .reminders ul {
+    padding-left: 20px;
+    text-align: left;
+  }
+
+  .sblogo {
+    width: 44px;
+    height: 50px;
+    display: flex;
+  }
+
+
+  /* print section */
+
+  /* Styles for the print button */
+.print-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Hide the print button when printing */
+  @media print {
+    .print-button {
+      display: none;
+    }
+  
+    /* Align content to fit well on the printed page */
+    body * {
+      visibility: hidden;
+    }
+  
+    .bill-view, .bill-view * {
+      visibility: visible;
+    }
+  
+    .bill-view {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      color: black;
+      background-color: white;
+    }
+  
+    .header, .company-info, .bill-details, .meter-information, .bill-summary, .reminders {
+      page-break-inside: avoid; /* Prevent page breaks within sections */
+    }
+  
+    .meter-information table, .meter-information th, .meter-information td {
+      border: 1px solid black; /* Ensure borders are visible on print */
+    }
+  
+    .sblogo {
+      width: 60px; /* Adjust logo size for printing */
+      height: auto;
+    }
+  }
+  
+  

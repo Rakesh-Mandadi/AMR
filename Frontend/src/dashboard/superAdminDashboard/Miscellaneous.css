@@ -1,0 +1,23 @@
+.services>h2{
+    color:white ;
+  }
+  .services>ul>button{
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #c2fbd7;
+    font-size: small;
+    
+    color: green;
+  }
+  .services>ul>li>a{
+    font-size: medium;
+    
+    color: black;
+    text-decoration: none;
+  }
+.services{
+    background-color: #8f86cc;
+    justify-content: space-between;
+    
+}
+  
