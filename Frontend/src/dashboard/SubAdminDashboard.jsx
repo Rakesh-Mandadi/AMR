@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import './SubAdminDashboard.css';
@@ -52,8 +50,11 @@ function SubAdminDashboard() {
 
     const fetchFacilityDetails = async () => {
       try {
+       
+
         const tokenD = localStorage.getItem('token');
         const userData = JSON.parse(localStorage.getItem('user'));
+        
         const userId = parseInt(userData?.id);
 
         if (!tokenD || !userId) {

@@ -17,6 +17,7 @@ const AddSubAdmin = () => {
     defaultValues: {
       username: "",
       emailId: "",
+      contact:"",
       pswd: "",
       role: "",
       facilities: "",
@@ -62,6 +63,7 @@ const AddSubAdmin = () => {
     const detailsSubadmin = {
       username: data.username,
       email: data.emailId,
+      contact:data.contact,
       password: data.pswd,
       facilityId: data.facilities,
       facilityName: selectedFacility ? selectedFacility.facilityName : '',
@@ -124,6 +126,16 @@ const AddSubAdmin = () => {
               />
               {errors.emailId && <p className='errorMsg'>{errors.emailId.message}</p>}
             </div>
+            <div className="AddSubAdminForm_element">
+              <label htmlFor='contact' className='AddSubAdminFormElementLabels'>Contact Number</label>
+              <input
+                type='tel'
+                id='contact'
+                className='AddSubAdminFormElementInputs'
+                {...register('contact', { required: 'Contact Number is required' })}
+              />
+              {errors.contact && <p className='errorMsg'>{errors.contact.message}</p>}
+            </div> 
 
             <div className="AddSubAdminForm_element">
               <label htmlFor='pswd' className='AddSubAdminFormElementLabels'>Password</label>
@@ -148,6 +160,7 @@ const AddSubAdmin = () => {
               </select>
               {errors.role && <p className='errorMsg'>{errors.role.message}</p>}
             </div>
+
 
             <div className="AddSubAdminForm_element">
               <label htmlFor='facilities' className='AddSubAdminFormElementLabels'>Facility</label>
@@ -180,6 +193,7 @@ const AddSubAdmin = () => {
         Name={
           `Username: <span class="highlight">${formData?.username}</span>\n
           Email: <span class="highlight">${formData?.emailId}</span>\n
+          contact:<span class="highlight">${formData?.contact}</span>\n
           Role: <span class="highlight">${formData?.role}</span>\n
           Facility: <span class="highlight">${facilities.find(facility => facility.facilityId === parseInt(formData?.facilities))?.facilityName || ''}</span>`
         }

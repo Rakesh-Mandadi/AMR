@@ -12,7 +12,6 @@ import config from '../config';
 const fetchFacilityDetails = async (userId, setFacilityDetails, setErrorMessage) => {
   try {
     const tokenD = localStorage.getItem('token');
-
     if (!tokenD || !userId) {
       setErrorMessage('Error verifying details from login');
       return;
@@ -39,6 +38,8 @@ const fetchFacilityDetails = async (userId, setFacilityDetails, setErrorMessage)
 };
 
 function SuperAdminDashboard() {
+  const [editType, setEditType] = useState('');
+
   const [errorMessage, setErrorMessage] = useState('');
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [activeTable, setActiveTable] = useState('facilities');
@@ -47,11 +48,18 @@ function SuperAdminDashboard() {
     facilityCount: '',
     subAdminCount: '',
     flatCount: '',
-    meterCount: '',
+    metercount: '',
   });
+  const [currentEditType, setCurrentEditType] = useState(''); // Tracks 'facility', 'subAdmin', or 'meter'
+  const [subAdminData, setSubAdminData] = useState([]);
+  const [flatsResidentsData, setFlatsResidentsData] = useState([]);
+
+
   const [facilityTableDetails, setFacilityTableDetails] = useState([]);
+  const [subAdmins, setSubAdmins] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedFacility, setSelectedFacility] = useState(null);
+  const[selectedSubAdmin,setSelectedSubAdmin]=useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
   const [formData, setFormData] = useState({
     facilityId: '',
@@ -61,6 +69,9 @@ function SuperAdminDashboard() {
     state: '',
     pin: '',
     country: 'India',
+    userName: '',
+    email: '',
+    contactNumber: '',
   });
   const [facilityDetails, setFacilityDetails] = useState({
     city: '',
@@ -75,8 +86,6 @@ function SuperAdminDashboard() {
   const fetchFlashcardDetails = async () => {
     try {
       const tokenD = localStorage.getItem('token');
-      console.log("get numeric api",tokenD);
-     
       const response = await axios.get(`${config.backendurl}/api/v1/users/getNumericData`, {
         headers: {
           Authorization: `Bearer ${tokenD}`,
@@ -108,7 +117,6 @@ function SuperAdminDashboard() {
       });
 
       if (Array.isArray(response.data)) {
-        console.log(" table data... ", response.data)
         setFacilityTableDetails(response.data);
       } else {
         setErrorMessage('Failed to fetch facility table details.');
@@ -119,13 +127,14 @@ function SuperAdminDashboard() {
       setErrorMessage('Error fetching facility table details.');
     }
   };
+  
+
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme');
     if (storedTheme) {
       setIsDarkMode(storedTheme === 'dark');
     }
-
     fetchFlashcardDetails();
     fetchFacilityTableDetails();
   }, []);
@@ -136,20 +145,6 @@ function SuperAdminDashboard() {
       fetchFacilityTableDetails();
     }
   }, [location.pathname]);
-
-  useEffect(() => {
-    if (facilityDetails.facilityId) {
-      setFormData({
-        facilityId: facilityDetails.facilityId || '',
-        facilityName: facilityDetails.facilityName || '',
-        street: facilityDetails.street || '',
-        city: facilityDetails.city || '',
-        state: facilityDetails.state || '',
-        country: facilityDetails.country || '',
-        pin: facilityDetails.pin || '',
-      });
-    }
-  }, [facilityDetails]);
 
   const handleToggleTheme = () => {
     setIsDarkMode((prevMode) => {
@@ -199,10 +194,34 @@ function SuperAdminDashboard() {
     setShowDeleteModal(false);
   };
 
-  const handleEditClick = (facility) => {
+  const handleEditClick = (data, type) => {
+    setCurrentEditType(type); // Set the type of form
     setShowEditForm(true);
-    fetchFacilityDetails(facility.userId, setFacilityDetails, setErrorMessage);
+  
+    if (type === 'facility') {
+      fetchFacilityDetails(data.userId, setFacilityDetails, setErrorMessage);
+      setFormData({
+        facilityId: data.facilityId,
+        facilityName: data.facilityName,
+        street: data.street,
+        city: data.city,
+        state: data.state,
+        pin: data.pin,
+        country: data.country || 'India',
+      });
+    } else if (type === 'subAdmin') {
+      setFormData({
+        userName: data.userName || '',
+        email: data.email || '',
+        contactNumber: data.contactNumber || '',
+      });
+    } else if (type === 'meter') {
+      setFormData({
+        noOfMeters: data.noOfMeters || '',
+      });
+    }
   };
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -215,42 +234,55 @@ function SuperAdminDashboard() {
   const handleUpdateSubmit = async (event) => {
     event.preventDefault();
 
-    const requestBody = {
-      facilityId: formData.facilityId,
-      facilityName: formData.facilityName,
-      street: formData.street,
-      city: formData.city,
-      state: formData.state,
-      pin: parseInt(formData.pin, 10),
-      country: formData.country,
-    };
+    const tokenD = localStorage.getItem('token');
 
     try {
-      const tokenD = localStorage.getItem('token');
-
-      const response = await axios.put(`${config.backendurl}/api/v1/users/updateFacilityDetails`,
-        requestBody,
-        {
-          headers: {
-            Authorization: `Bearer ${tokenD}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const response = formData.userName
+        
+        ? await axios.put(
+            `${config.backendurl}/api/v1/users/updateFacilityDetails`,
+            {
+              facilityId: formData.facilityId,
+              facilityName: formData.facilityName,
+              street: formData.street,
+              city: formData.city,
+              state: formData.state,
+              pin: parseInt(formData.pin, 10),
+              country: formData.country,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${tokenD}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          )
+          :await axios.put(
+            `${config.backendurl}/api/v1/users/updateSubAdminDetails`,
+            {
+              userName: formData.userName,
+              email: formData.email,
+              contactNumber: formData.contactNumber,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${tokenD}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          
+  
 
       if (response.status === 200 || response.status === 201) {
-        toast.success('Facility updated successfully');
+        toast.success(formData.userName ? 'Sub-admin updated successfully' : formData.facilityId ? 'Facility updated successfully' : 'Resident details updated sucessfully');
         setErrorMessage('');
         setShowEditForm(false);
-        setFacilityTableDetails((prevDetails) =>
-          prevDetails.map((facility) =>
-            facility.facilityId === formData.facilityId ? { ...facility, ...formData } : facility
-          )
-        );
+        fetchFacilityTableDetails();
       } else {
-        toast.error('Failed to update facility');
-        setErrorMessage('Failed to update facility.');
-        console.error('Failed to update facility', response.data);
+        toast.error('Update failed');
+        setErrorMessage('Update failed.');
+        console.error('Update error', response.data);
       }
     } catch (error) {
       console.error('Error submitting form', error);
@@ -287,9 +319,9 @@ function SuperAdminDashboard() {
                   <p>Flats/Residents</p>
                   <div className="flashcardCount">{flashcardDetails.flatCount}</div>
                 </div>
-                <div className="flashcard" onClick={() => handleFlashcardClick('numberOfMeters')}>
-                  <p>Number of Meters</p>
-                  <div className="flashcardCount">{flashcardDetails.meterCount}</div>
+                <div className="flashcard" onClick={() => handleFlashcardClick('totalmeters')}>
+                  <p>Meters</p>
+                  <div className="flashcardCount">{flashcardDetails.metercount}</div>
                 </div>
               </div>
               {activeTable === 'facilities' && (
@@ -306,7 +338,7 @@ function SuperAdminDashboard() {
                       </tr>
                     </thead>
                     <tbody>
-                      {facilityTableDetails.map((facility, index) => (
+                    {facilityTableDetails.map((facility, index) => (
                         <tr key={facility.facilityId}>
                           <td>{index + 1}</td>
                           <td>{facility.facilityName}</td>
@@ -314,7 +346,7 @@ function SuperAdminDashboard() {
                           <td>{facility.userName}</td>
                           <td>{facility.email}</td>
                           <td>
-                            <button className="update_button" onClick={() => handleEditClick(facility)}>
+                            <button className="update_button" onClick={() => handleEditClick(facility, 'facility')}>
                               Update
                             </button>
                             <button className="delete_button" onClick={() => handleDeleteClick(facility)}>
@@ -327,64 +359,191 @@ function SuperAdminDashboard() {
                   </table>
                 </div>
               )}
-              {showEditForm && (
-                <div className="edit-form-container">
-                  <form onSubmit={handleUpdateSubmit} className="edit-form">
-                    <div className="edit-form-header">
-                      <h4>Edit Facility</h4>
-                      <button type="button" className="close-edit-form" onClick={handleCloseEditForm}>
-                        &times;
-                      </button>
-                    </div>
-                    <input
-                      type="text"
-                      name="facilityName"
-                      value={formData.facilityName}
-                      onChange={handleInputChange}
-                      placeholder="Facility Name"
-                    />
-                    <input
-                      type="text"
-                      name="street"
-                      value={formData.street}
-                      onChange={handleInputChange}
-                      placeholder="Street"
-                    />
-                    <input
-                      type="text"
-                      name="city"
-                      value={formData.city}
-                      onChange={handleInputChange}
-                      placeholder="City"
-                    />
-                    <input
-                      type="text"
-                      name="state"
-                      value={formData.state}
-                      onChange={handleInputChange}
-                      placeholder="State"
-                    />
-                    <input
-                      type="text"
-                      name="pin"
-                      value={formData.pin}
-                      onChange={handleInputChange}
-                      placeholder="PIN"
-                    />
-                    <input
-                      type="text"
-                      name="country"
-                      value={formData.country}
-                      onChange={handleInputChange}
-                      placeholder="Country"
-                    />
-                    <button type="submit">Save</button>
-                    <button type="button" onClick={handleCloseEditForm}>
-                      Cancel
-                    </button>
-                  </form>
+              
+              {activeTable === 'subAdmin' && (
+                <div className="subAdmin-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Sr.No</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {facilityTableDetails.map((subAdmin, index) => (
+                        <tr key={subAdmin.subAdminId}>
+                          <td>{index + 1}</td>
+                          <td>{subAdmin.userName}</td>
+                          <td>{subAdmin.email}</td>
+                          <td>{subAdmin.contactno}</td>
+                          <td>
+                            <button className="update_button" onClick={() => handleEditClick(subAdmin, 'subAdmin')}>
+                              Update
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               )}
+              
+              {activeTable === 'flatsResidents' && (
+                <div className="flatsResidents-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Sr.No</th>
+                        <th>Flat Number</th>
+                        <th>No.of Meters</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {facilityTableDetails.map((flatsResidents, index) => (
+                        <tr key={flatsResidents.flatsResidentsId}>
+                          <td>{index + 1}</td>
+                          <td>{flatsResidents.flatNumber}</td>
+                          <td>{flatsResidents.noOfMeters}</td>
+                          
+                          <td>
+                            <button className="update_button" onClick={() => handleEditClick(flatsResidents, 'flatsResidents')}>
+                              Update
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+              
+
+              {showEditForm && currentEditType === 'facility' && (
+  <div className="edit-form-container">
+    <form onSubmit={handleUpdateSubmit} className="edit-form">
+      <div className="edit-form-header">
+        <h4>Edit Facility</h4>
+        <button className="close-edit-form" onClick={handleCloseEditForm}>
+          &times;
+        </button>
+      </div>
+      <input
+        type="text"
+        name="facilityName"
+        value={formData.facilityName}
+        onChange={handleInputChange}
+        placeholder="Facility Name"
+        required
+      />
+      <input
+        type="text"
+        name="street"
+        value={formData.street}
+        onChange={handleInputChange}
+        placeholder="Street"
+      />
+      <input
+        type="text"
+        name="city"
+        value={formData.city}
+        onChange={handleInputChange}
+        placeholder="City"
+      />
+      <input
+        type="text"
+        name="state"
+        value={formData.state}
+        onChange={handleInputChange}
+        placeholder="State"
+      />
+      <input
+        type="text"
+        name="pin"
+        value={formData.pin}
+        onChange={handleInputChange}
+        placeholder="PIN"
+      />
+      <input
+        type="text"
+        name="country"
+        value={formData.country}
+        onChange={handleInputChange}
+        placeholder="Country"
+      />
+      <button type="submit">Save</button>
+      <button type="button" onClick={handleCloseEditForm}>
+        Cancel
+      </button>
+    </form>
+  </div>
+)}
+{showEditForm && currentEditType === 'subAdmin' && (
+  <div className="edit-form-container">
+    <form onSubmit={handleUpdateSubmit} className="edit-form">
+      <div className="edit-form-header">
+        <h4>Edit Sub-Admin Details</h4>
+        <button className="close-edit-form" onClick={handleCloseEditForm}>
+          &times;
+        </button>
+      </div>
+      <input
+        type="text"
+        name="userName"
+        value={formData.userName}
+        onChange={handleInputChange}
+        placeholder="User Name"
+        required
+      />
+      <input
+        type="email"
+        name="email"
+        value={formData.email}
+        onChange={handleInputChange}
+        placeholder="Email"
+      />
+      <input
+        type="text"
+        name="contactNumber"
+        value={formData.contactNumber}
+        onChange={handleInputChange}
+        placeholder="Contact Number"
+      />
+      <button type="submit">Save</button>
+      <button type="button" onClick={handleCloseEditForm}>
+        Cancel
+      </button>
+    </form>
+  </div>
+)}
+{showEditForm && currentEditType === 'flatsResidents' && (
+  <div className="edit-form-container">
+    <form onSubmit={handleUpdateSubmit} className="edit-form">
+      <div className="edit-form-header">
+        <h4>Edit Meter Details</h4>
+        <button className="close-edit-form" onClick={handleCloseEditForm}>
+          &times;
+        </button>
+      </div>
+      <input
+        type="text"
+        name="noOfMeters"
+        value={formData.noOfMeters}
+        onChange={handleInputChange}
+        placeholder="Number of Meters"
+      />
+      <button type="submit">Save</button>
+      <button type="button" onClick={handleCloseEditForm}>
+        Cancel
+      </button>
+    </form>
+  </div>
+)}
+
+
             </>
           ) : (
             <Outlet />
@@ -395,9 +554,9 @@ function SuperAdminDashboard() {
         show={showDeleteModal}
         onClose={handleCloseModal}
         onConfirm={handleConfirmDelete}
-        Name={selectedFacility?.facilityName}
+        name={selectedFacility?.facilityName || selectedSubAdmin?.userName}
       />
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 }
