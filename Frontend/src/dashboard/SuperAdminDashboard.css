@@ -77,7 +77,7 @@ main {
 .facilities-table,
 .subAdmin-table,
 .flatsResidents-table,
-.numberOfMeters-table {
+.assignedMeters-table {
   margin-top: 20px;
   height: 409px;
   overflow-y: auto;
@@ -86,7 +86,7 @@ main {
 .facilities-table table,
 .subAdmin-table table,
 .flatsResidents-table table,
-.numberOfMeters-table table {
+.assignedMeters-table table {
   width: 100%;
   border-collapse: collapse;
 }
@@ -94,7 +94,7 @@ main {
 .facilities-table th, .facilities-table td,
 .subAdmin-table th, .subAdmin-table td,
 .flatsResidents-table th, .flatsResidents-table td,
-.numberOfMeters-table th, .numberOfMeters-table td {
+.assignedMeters-table th, .assignedMeters-table td {
   padding: 14px;
   text-align: left;
 }
@@ -103,7 +103,7 @@ main {
 .facilities-table th,
 .subAdmin-table th,
 .flatsResidents-table th,
-.numberOfMeters-table th {
+.assignedMeters-table th {
   position:sticky;
   top: 0px;
 }
@@ -238,7 +238,7 @@ main {
 .light-mode .facilities-table,
 .light-mode .subAdmin-table,
 .light-mode .flatsResidents-table,
-.light-mode .numberOfMeters-table {
+.light-mode .assignedMeters-table {
   margin-top: 20px;
   height: 409px;
   overflow-y: auto;
@@ -247,7 +247,7 @@ main {
 .light-mode .facilities-table table,
 .light-mode .subAdmin-table table,
 .light-mode .flatsResidents-table table,
-.light-mode .numberOfMeters-table table {
+.light-mode .assignedMeters-table table {
   width: 100%;
   border-collapse: collapse;
   border: 1px solid rgb(198, 197, 197);
@@ -260,7 +260,7 @@ main {
 .light-mode .facilities-table td,
 .light-mode .subAdmin-table td,
 .light-mode .flatsResidents-table td,
-.light-mode .numberOfMeters-table td {
+.light-mode .assignedMeters-table td {
   padding: 14px;
   text-align: left;
   border-bottom: 1px solid rgb(198, 197, 197);
@@ -269,7 +269,7 @@ main {
 .light-mode .facilities-table th,
 .light-mode .subAdmin-table th,
 .light-mode .flatsResidents-table th,
-.light-mode .numberOfMeters-table th {
+.light-mode .assignedMeters-table th {
   background-color: #f0f0f0;
   border-top: 1px solid rgb(198, 197, 197);
 }
@@ -278,7 +278,7 @@ main {
 .light-mode .facilities-table tr:hover,
 .light-mode .subAdmin-table tr:hover,
 .light-mode .flatsResidents-table tr:hover,
-.light-mode .numberOfMeters-table tr:hover {
+.light-mode .assignedMeters-table tr:hover {
   background-color: #fbf9f9;
 }
 
@@ -330,7 +330,7 @@ main {
 .dark-mode .facilities-table,
 .dark-mode .subAdmin-table,
 .dark-mode .flatsResidents-table,
-.dark-mode .numberOfMeters-table {
+.dark-mode .assignedMeters-table {
   margin-top: 20px;
   height: 409px;
   overflow-y: auto;
@@ -339,7 +339,7 @@ main {
 .dark-mode .facilities-table table,
 .dark-mode .subAdmin-table table,
 .dark-mode .flatsResidents-table table,
-.dark-mode .numberOfMeters-table table {
+.dark-mode .assignedMeters-table table {
   width: 100%;
   border-collapse: collapse;
   border: 1px solid #31363F;
@@ -348,11 +348,11 @@ main {
 .dark-mode .facilities-table th,
 .dark-mode .subAdmin-table th,
 .dark-mode .flatsResidents-table th,
-.dark-mode .numberOfMeters-table th,
+.dark-mode .assignedMeters-table th,
 .dark-mode .facilities-table td,
 .dark-mode .subAdmin-table td,
 .dark-mode .flatsResidents-table td,
-.dark-mode .numberOfMeters-table td {
+.dark-mode .assignedMeters-table td {
   padding: 14px;
   text-align: left;
   border-bottom: 1px solid #31363F;
@@ -361,7 +361,7 @@ main {
 .dark-mode .facilities-table th,
 .dark-mode .subAdmin-table th,
 .dark-mode .flatsResidents-table th,
-.dark-mode .numberOfMeters-table th {
+.dark-mode .assignedMeters-table th {
   background-color: #31363F;
   border-top: 1px solid #31363F;
   color: #bddce0;
@@ -372,7 +372,7 @@ main {
 .dark-mode .facilities-table tr:hover,
 .dark-mode .subAdmin-table tr:hover,
 .dark-mode .flatsResidents-table tr:hover,
-.dark-mode .numberOfMeters-table tr:hover {
+.dark-mode .assignedMeters-table tr:hover {
   background-color: #2c2f3e;
 }
 

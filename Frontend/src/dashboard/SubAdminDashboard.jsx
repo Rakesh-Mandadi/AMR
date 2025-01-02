@@ -102,6 +102,8 @@ function SubAdminDashboard() {
             'Content-Type': 'application/json',
           },
         });
+        // console.log('Flashcard API response:', response.data);
+
 
         if (response.status === 200) {
           const { buildingCount, flatCount, meterCount } = response.data.data;

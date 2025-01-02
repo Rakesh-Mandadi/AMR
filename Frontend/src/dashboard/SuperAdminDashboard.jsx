@@ -48,15 +48,20 @@ function SuperAdminDashboard() {
     facilityCount: '',
     subAdminCount: '',
     flatCount: '',
-    metercount: '',
+    assignedMeter: '',
+    // unAssignedMeter:'',
   });
   const [currentEditType, setCurrentEditType] = useState(''); // Tracks 'facility', 'subAdmin', or 'meter'
-  const [subAdminData, setSubAdminData] = useState([]);
-  const [flatsResidentsData, setFlatsResidentsData] = useState([]);
+ 
 
-
+  const [subAdminDetails, setSubAdminDetails] = useState([]);
+  const[flatDetails, setFlatDetails] = useState([]);
   const [facilityTableDetails, setFacilityTableDetails] = useState([]);
-  const [subAdmins, setSubAdmins] = useState([]);
+  const[assignedMeters,setAssignedMeters] = useState([])
+  const[flatMeters,setFlatMeters] = useState([])
+  
+  const [detailedMeterData, setDetailedMeterData] = useState(null);
+  const [facilityId , setfacilityId]= useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedFacility, setSelectedFacility] = useState(null);
   const[selectedSubAdmin,setSelectedSubAdmin]=useState(null);
@@ -94,8 +99,8 @@ function SuperAdminDashboard() {
       });
 
       if (response.status === 200) {
-        const { facilityCount, subAdminCount, flatCount, meterCount } = response.data.data;
-        setFlashcardDetails({ facilityCount, subAdminCount, flatCount, meterCount });
+        const { facilityCount, subAdminCount, flatCount, assignedMeter } = response.data.data;
+        setFlashcardDetails({ facilityCount, subAdminCount, flatCount, assignedMeter});
       } else {
         setErrorMessage('Failed to fetch flashcard details.');
         console.error('Flashcard details read error', response.data);
@@ -127,8 +132,108 @@ function SuperAdminDashboard() {
       setErrorMessage('Error fetching facility table details.');
     }
   };
-  
+  const getSubAdmins = async () => {
+    try {
+      const tokenD = localStorage.getItem('token');
+      const response = await axios.get(`${config.backendurl}/api/v1/users/getSubAdmins`, {
+        headers: {
+          Authorization: `Bearer ${tokenD}`,
+          'Content-Type': 'application/json',
+        },
+      });
 
+      if (Array.isArray(response.data)) {
+        setSubAdminDetails(response.data);
+      } else {
+        setErrorMessage('Failed to fetch subadmin table details.');
+        console.error('Subadmin table details read error', response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching subadmin table details:', error);
+      setErrorMessage('Error fetching subadmin table details.');
+    }
+  };
+  const getFlatDetails = async () => {
+    try {
+      const tokenD = localStorage.getItem('token');
+      const response = await axios.get(`${config.backendurl}/api/v1/users/getFlatDetails`, {
+        
+        headers: {
+          Authorization: `Bearer ${tokenD}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      // console.log("Flat details received from API: ",response.data);
+
+      if (Array.isArray(response.data)) {
+        setFlatDetails(response.data);
+      } else {
+        setErrorMessage('Failed to fetch ResidentFlat table details.');
+        console.error('ResidentFlat table details read error', response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching ResidentFlat table details:', error);
+      setErrorMessage('Error fetching ResidentFlat table details.');
+    }
+  };
+  const getAssignedMeters = async () => {
+    try {
+      const tokenD = localStorage.getItem('token');
+      const response = await axios.get(`${config.backendurl}/api/v1/users/getFacilityMeterDetails`, {
+        
+        headers: {
+          Authorization: `Bearer ${tokenD}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      // console.log("Flat details received from API: ",response.data);
+
+      if (Array.isArray(response.data)) {
+        setAssignedMeters(response.data);
+      } else {
+        setErrorMessage('Failed to fetch FacilityMeter table details.');
+        console.error('FacilityMeter table details read error', response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching FacilityMeter table details:', error);
+      setErrorMessage('Error fetching FacilityMeter table details.');
+    }
+  };
+
+  const getFlatMeters = async () => {
+    // if (!facilityDetails.facilityId) {
+    //   console.error('Facility ID is null or undefined');
+    //   return;
+    // }
+  
+    try {
+      
+      const tokenD = localStorage.getItem('token');
+      const response = await axios.get(`${config.backendurl}/api/v1/users/${facilityId}/getAssignedMeterDetails`, {
+        
+        headers: {
+          Authorization: `Bearer ${tokenD}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      // console.log("Flatmeter details received from API: ",response.data);
+
+      if (response.status === 200) {
+        console.log("/getAssignedMeterDetails",response.data);
+        setFlatMeters(response.data);
+      } else {
+        setErrorMessage('Failed to fetch detailed building data.');
+        console.error('Detailed building data read error', response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching detailed building data:', error);
+      setErrorMessage('Error fetching detailed building data.');
+    }
+  };
+useEffect(()=>{
+  getFlatMeters()
+
+},[facilityId])
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme');
@@ -143,8 +248,15 @@ function SuperAdminDashboard() {
     if (location.pathname === '/SuperAdminDashboard') {
       fetchFlashcardDetails();
       fetchFacilityTableDetails();
+      
+      getSubAdmins();
+      getFlatDetails();
+      getAssignedMeters();
+      //getFlatMeters();
     }
   }, [location.pathname]);
+  
+
 
   const handleToggleTheme = () => {
     setIsDarkMode((prevMode) => {
@@ -219,6 +331,10 @@ function SuperAdminDashboard() {
       setFormData({
         noOfMeters: data.noOfMeters || '',
       });
+    } else if(type=='assignedMeter'){
+      setFormData({
+        noOfMeters:data.noOfMeters||'',
+      });
     }
   };
   
@@ -237,7 +353,7 @@ function SuperAdminDashboard() {
     const tokenD = localStorage.getItem('token');
 
     try {
-      const response = formData.userName
+      const response = formData.facilityId
         
         ? await axios.put(
             `${config.backendurl}/api/v1/users/updateFacilityDetails`,
@@ -257,7 +373,8 @@ function SuperAdminDashboard() {
               },
             }
           )
-          :await axios.put(
+          : formData.userName
+          ? await axios.put(
             `${config.backendurl}/api/v1/users/updateSubAdminDetails`,
             {
               userName: formData.userName,
@@ -270,11 +387,21 @@ function SuperAdminDashboard() {
                 'Content-Type': 'application/json',
               },
             }
+          )
+          : await axios.put(
+            `${config.backendurl}/api/v1/users/updateFlatDetails`,
+            {
+              noOfMeters: formData.noOfMeters,
+              
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${tokenD}`,
+                'Content-Type': 'application/json',
+              },
+            }
           );
-          
-  
-
-      if (response.status === 200 || response.status === 201) {
+        if (response.status === 200 || response.status === 201) {
         toast.success(formData.userName ? 'Sub-admin updated successfully' : formData.facilityId ? 'Facility updated successfully' : 'Resident details updated sucessfully');
         setErrorMessage('');
         setShowEditForm(false);
@@ -298,6 +425,7 @@ function SuperAdminDashboard() {
   const isDashboardRoute = location.pathname === '/SuperAdminDashboard';
 
   return (
+    <div className="fullPage">
     <div className={isDarkMode ? 'dark-mode' : 'light-mode'}>
       <SuperAdminSideBar isDarkMode={isDarkMode} onToggleTheme={handleToggleTheme} />
       <div className="content">
@@ -315,14 +443,18 @@ function SuperAdminDashboard() {
                   <p>Sub-Admin</p>
                   <div className="flashcardCount">{flashcardDetails.subAdminCount}</div>
                 </div>
-                <div className="flashcard" onClick={() => handleFlashcardClick('flatsResidents')}>
+                <div className="flashcard" onClick={() => handleFlashcardClick('flat')}>
                   <p>Flats/Residents</p>
                   <div className="flashcardCount">{flashcardDetails.flatCount}</div>
                 </div>
-                <div className="flashcard" onClick={() => handleFlashcardClick('totalmeters')}>
-                  <p>Meters</p>
-                  <div className="flashcardCount">{flashcardDetails.metercount}</div>
+                <div className="flashcard" onClick={() => handleFlashcardClick('Meters')}>
+                  <p>Assigned Meters</p>
+                  <div className="flashcardCount">{flashcardDetails.assignedMeter}</div>
                 </div>
+                {/* <div className="flashcard" onClick={() => handleFlashcardClick('unAssignedMeters')}>
+                  <p>UnAssigned Meters</p>
+                  <div className="flashcardCount">{flashcardDetails.unAssignedMeter}</div>
+                </div> */}
               </div>
               {activeTable === 'facilities' && (
                 <div className="facilities-table">
@@ -373,14 +505,14 @@ function SuperAdminDashboard() {
                       </tr>
                     </thead>
                     <tbody>
-                      {facilityTableDetails.map((subAdmin, index) => (
+                      {subAdminDetails.map((subAdmin, index) => (
                         <tr key={subAdmin.subAdminId}>
                           <td>{index + 1}</td>
-                          <td>{subAdmin.userName}</td>
-                          <td>{subAdmin.email}</td>
-                          <td>{subAdmin.contactno}</td>
+                          <td>{subAdmin.Name}</td>
+                          <td>{subAdmin.Email}</td>
+                          <td>{subAdmin.Contact}</td>
                           <td>
-                            <button className="update_button" onClick={() => handleEditClick(subAdmin, 'subAdmin')}>
+                            <button className="update_button" onClick={() =>handleEditClick(subAdmin, 'subAdmin')}>
                               Update
                             </button>
                           </td>
@@ -391,7 +523,7 @@ function SuperAdminDashboard() {
                 </div>
               )}
               
-              {activeTable === 'flatsResidents' && (
+              {activeTable === 'flat' && (
                 <div className="flatsResidents-table">
                   <table>
                     <thead>
@@ -403,14 +535,13 @@ function SuperAdminDashboard() {
                       </tr>
                     </thead>
                     <tbody>
-                      {facilityTableDetails.map((flatsResidents, index) => (
-                        <tr key={flatsResidents.flatsResidentsId}>
+                      {flatDetails.map((flat, index) => (
+                        <tr key={flat.flatId}>
                           <td>{index + 1}</td>
-                          <td>{flatsResidents.flatNumber}</td>
-                          <td>{flatsResidents.noOfMeters}</td>
-                          
+                          <td>{flat.flatNumber}</td>
+                          <td>{flat.noOfMeters}</td>
                           <td>
-                            <button className="update_button" onClick={() => handleEditClick(flatsResidents, 'flatsResidents')}>
+                            <button className="update_button" onClick={() => handleEditClick(flat, 'flat')}>
                               Update
                             </button>
                           </td>
@@ -420,9 +551,76 @@ function SuperAdminDashboard() {
                   </table>
                 </div>
               )}
+                {activeTable === 'Meters' && (
+                <div className="assignedMeters-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Sr.No</th>
+                        <th>Facility Name</th>
+                        <th>No.of Meters</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {assignedMeters.map((Meters, index) => (
+                        <tr key={Meters.MeterId}>
+                          <td>{index + 1}</td>
+                          <td onClick={()=>{setfacilityId(Meters.facilityId); }}>{Meters.facilityName}</td>
+                          <td>{Meters.meterCount}</td>
+                          
+                          <td>
+                            <button className="update_button" onClick={() => handleEditClick(Meters, 'Meters')}>
+                              Update
+                            </button>
+                          </td>
+                        </tr>
+                        
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+
+{activeTable==='detailedMeterData' && (
+  <div className="detailed-meter-table">
+    
+    
+    <table >
+      <thead>
+        <tr>
+          <th>Building Name</th>
+          <th>Floor Number</th>
+          <th>Flat Number</th>
+          <th>User Name</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+                      {flatMeters.map((Meter, index) => (
+                        <tr key={Meter.MeterId}>
+                          <td>{index + 1}</td>
+                          <td>{Meter.buildingName}</td>
+                          <td>{Meter.floorno}</td>
+                          <td>{Meter.Flatno}</td>
+                          <td>{Meter.username}</td>
+                          
+                          <td>
+                            <button className="update_button" onClick={() => handleEditClick(Meter, 'Meter')}>
+                              Update
+                            </button>
+                          </td>
+                        </tr>
+                        
+                      ))}
+                    </tbody>
+    </table>
+  </div>
+)}
+
               
 
-              {showEditForm && currentEditType === 'facility' && (
+  {showEditForm && currentEditType === 'facility' && (
   <div className="edit-form-container">
     <form onSubmit={handleUpdateSubmit} className="edit-form">
       <div className="edit-form-header">
@@ -519,7 +717,7 @@ function SuperAdminDashboard() {
     </form>
   </div>
 )}
-{showEditForm && currentEditType === 'flatsResidents' && (
+{showEditForm && currentEditType === 'flatDetails' && (
   <div className="edit-form-container">
     <form onSubmit={handleUpdateSubmit} className="edit-form">
       <div className="edit-form-header">
@@ -557,6 +755,7 @@ function SuperAdminDashboard() {
         name={selectedFacility?.facilityName || selectedSubAdmin?.userName}
       />
       <ToastContainer />
+    </div>
     </div>
   );
 }

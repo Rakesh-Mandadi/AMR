@@ -77,11 +77,11 @@ const SuperAdminSideBar = ({ isDarkMode, onToggleTheme }) => {
               <FontAwesomeIcon icon={faCog} /> Settings
             </Link>
           </li>
-          <li className={location.pathname === '/SuperAdminDashboard/Miscellaneous' ? 'active-link' : ''}>
+          {/* <li className={location.pathname === '/SuperAdminDashboard/Miscellaneous' ? 'active-link' : ''}>
             <Link to="/SuperAdminDashboard/Miscellaneous">
               <FontAwesomeIcon icon={faEllipsisH} /> Miscellaneous
             </Link>
-          </li>
+          </li> */}
           <li onClick={handleLogout}>
             <Link to="/">
               <FontAwesomeIcon icon={faSignOutAlt} /> Logout

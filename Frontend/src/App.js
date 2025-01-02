@@ -76,7 +76,7 @@ function App() {
           <Route path="UpdateSubAdmin" element={<UpdateSubAdmin />} />
           <Route path="CreateFacility" element={<CreateFacility />} />
           <Route path="Settings" element={<Settings />} />
-          <Route path="Miscellaneous" element={<Miscellaneous />} />
+          {/* <Route path="Miscellaneous" element={<Miscellaneous />} /> */}
         </Route>
         <Route
           path="/user-dashboard"
