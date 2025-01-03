@@ -1,0 +1,184 @@
+.UpdateFacilityPage {
+    display: flex;
+    height: 100vh;
+    background-color: white;
+    justify-content: center;
+    padding-bottom: 20px;
+    height: max-content;
+    width: 68vh;
+    margin: auto;
+  }
+  
+  .line{
+    margin: 10px;
+  }
+  
+  .UpdateFacility {
+    flex: 1;
+    padding: 30px;
+    height: max-content;
+    margin: 10px;
+  }
+  
+  .UpdateFacility h3{
+    margin-bottom: 7px;
+  }
+  
+  .UpdateFacilityForm_element {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    position: static;
+    width: 90%;
+    margin: 2px 2px 15px 4px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .UpdateFacilityFormElementLabels {
+    font-size: 0.75rem;
+    font-weight: 700;
+    position: relative;
+    top: 0.5rem;
+    margin: 0 0 0 7px;
+    padding: 0 3px;
+    width: fit-content;
+  }
+  
+  .UpdateFacilityFormElementInputs {
+    padding: 11px 10px;
+    font-size: 0.75rem;
+    border-radius: 5px;
+  }
+  
+  
+  
+  .UpdateFacilityForm_Button:hover {
+    box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+    transform: scale(1.05) rotate(-1deg);
+  }
+  
+  .UpdateFacilityForm_Button {
+    background-color: #c2fbd7;
+    border-radius: 100px;
+    box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+    color: green;
+    cursor: pointer;
+    display: inline-block;
+    font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 250ms;
+    border: 0;
+    font-size: 16px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .UpdateFacilityForm_Button[disabled] {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+  
+  .UpdateFacilityForm_Button:hover[disabled] {
+    box-shadow: none;
+    transform: none;
+  }
+  
+  
+  .errorMsg {
+    color: red;
+    font-size: 13px;
+    padding-top: 5px;
+    padding-left: 5px;
+  }
+  
+  
+  .dark-mode {
+    --background-color: #222831;
+    --text-color: #ffffff;
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  
+  .light-mode {
+    --background-color: #ffffff;
+    --text-color: #000000;
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  
+  .light-mode .UpdateFacilityPage {
+    background-color: white;
+    color: black;
+  }
+  
+  
+  .light-mode .UpdateFacility {
+    background-color: #f6f5f5;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  
+  .light-mode .UpdateFacilityForm {
+    background-color: #f6f5f5;
+  }
+  
+  .light-mode .UpdateFacilityFormElementInputs {
+    background-color: #f6f5f5;
+    color: #000000;
+    border: 2px #4f306d solid;
+  }
+  
+  .light-mode .UpdateFacilityFormElementLabels{
+    background-color:#f6f5f5 ;
+  }
+  
+  .light-mode .UpdateFacilityFormElementInputs::placeholder {
+    color: #999999;
+  }
+  
+  
+  .light-mode .UpdateFacilityFormElementLabels {
+    color: #333333;
+  }
+  
+  /* Dark mode */
+  .dark-mode .UpdateFacilityPage {
+    background-color: #1b1b1b;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(180, 179, 179, 0.2), 0 6px 20px 0 rgba(222, 221, 221, 0.19);
+  }
+  
+  .dark-mode .UpdateFacility {
+    background-color: #1b1b1b;
+  }
+  
+  .dark-mode .UpdateFacilityForm {
+    background-color: #1b1b1b;
+  }
+  
+  .dark-mode .UpdateFacilityFormElementInputs {
+    background-color: #2b2b2b;
+    color: #ffffff;
+    border: 2px #d9c8f1 solid;
+  }
+  
+  .dark-mode .UpdateFacilityFormElementLabels {
+    background-color: #2b2b2b;
+  }
+  
+  .dark-mode .UpdateFacilityFormElementInputs::placeholder {
+    color: #aaaaaa;
+  }
+  
+  .dark-mode .UpdateFacilityFormElementLabels {
+    color: #dddddd;
+  }
+  
+  

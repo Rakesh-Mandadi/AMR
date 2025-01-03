@@ -20,6 +20,8 @@ function SubAdminDashboard() {
   const [flatData, setFlatData] = useState([]);
    const[meterCount, setMeterCount]= useState([]);
    const [meterData, setMeterData] = useState([]);
+   
+
 
   const [showUpdatePopup, setShowUpdatePopup] = useState(false);
   const [buildingToUpdate, setBuildingToUpdate] = useState(null);
@@ -343,7 +345,7 @@ function SubAdminDashboard() {
                   <div className="flashcardCount">{flashcardDetails.flatCount}</div>
                 </div>
                 <div className="flashcard" onClick={() => handleFlashcardClick('totalMeters')}>
-                  <p>Total Meters</p>
+                  <p>Assigned Meters</p>
                   <div className="flashcardCount">{flashcardDetails.meterCount}</div>
                 </div>
               </div>
@@ -411,15 +413,15 @@ function SubAdminDashboard() {
     </table>
                 </div>
               )}
-    {activeTable === 'totalMeters' && (
-    <div className="totalMeters-table">
+{activeTable === 'totalMeters' && (
+  <div className="totalMeters-table">
     <h4>Total Meters</h4>
     <table className="new-table">
       <thead>
         <tr>
           <th rowSpan="2">Sno</th>
-          <th colSpan="2">Total No of Meters</th>
           <th rowSpan="2">Type of Meters</th>
+          <th colSpan="2">Total No of Meters</th>
           <th rowSpan="2">Action</th>
         </tr>
         <tr>
@@ -431,9 +433,10 @@ function SubAdminDashboard() {
         {meterData.map((meter, index) => (
           <tr key={index}>
             <td>{index + 1}</td>
-             <td>{meter.totalMeters}</td> 
-            <td>{meter.availability}</td>
-            <td>{meter.meterTypes}</td>
+            <td>{meter.meterTypes}</td>  {/* Type of Meters */}
+            <td>{meter.available}</td>   {/* Available */}
+            <td>{meter.currentlyUsing}</td> {/* Currently Using */}
+            {/* <td>{meter.totalMeters}</td>  Total No of Meters */}
             <td>
               <button className="update_button">Update</button>
               <button className="delete_button">Delete</button>
@@ -443,34 +446,37 @@ function SubAdminDashboard() {
       </tbody>
     </table>
 
-    Sub-table
-    <h5>Meter Details</h5>
-    <table className="new-table">
-      <thead>
-        <tr>
-          <th>Sno</th>
-          <th>Flat Number</th>
-          <th>Floor Number</th>
-          <th>Building Name</th>
-          <th>Meter Number</th>
-          <th>MAC Address</th>
-        </tr>
-      </thead>
-      <tbody>
-        {meterSubTableData.map((item, index) => (
-          <tr key={index}>
-            <td>{index + 1}</td>
-            <td>{item.flatNumber}</td>
-            <td>{item.floorNumber}</td>
-            <td>{item.buildingName}</td>
-            <td>{item.meterNumber}</td>
-            <td>{item.macAddress}</td>
+    {/* Sub-table for Meter Details */}
+    {/* <div className="meter-sub-table">
+      <h5>Meter Details</h5>
+      <table className="new-table">
+        <thead>
+          <tr>
+            <th>Sno</th>
+            <th>Flat Number</th>
+            <th>Floor Number</th>
+            <th>Building Name</th>
+            <th>Meter Number</th>
+            <th>MAC Address</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+          {meterSubTableData.map((item, index) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{item.flatNumber}</td>
+              <td>{item.floorNumber}</td>
+              <td>{item.buildingName}</td>
+              <td>{item.meterNumber}</td>
+              <td>{item.macAddress}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table> */}
+    </div>
+  //</div>
 )}
+
 
               
               <br/>

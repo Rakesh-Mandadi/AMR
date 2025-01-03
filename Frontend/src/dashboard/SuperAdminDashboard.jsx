@@ -39,6 +39,7 @@ const fetchFacilityDetails = async (userId, setFacilityDetails, setErrorMessage)
 
 function SuperAdminDashboard() {
   const [editType, setEditType] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const [errorMessage, setErrorMessage] = useState('');
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -201,10 +202,7 @@ function SuperAdminDashboard() {
   };
 
   const getFlatMeters = async () => {
-    // if (!facilityDetails.facilityId) {
-    //   console.error('Facility ID is null or undefined');
-    //   return;
-    // }
+   
   
     try {
       
@@ -421,6 +419,15 @@ useEffect(()=>{
   const handleCloseEditForm = () => {
     setShowEditForm(false);
   };
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+  const filteredFacilities = facilityDetails
+  ? [facilityDetails].filter((facility) =>
+      facility.facilityName.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  : [];
+  
 
   const isDashboardRoute = location.pathname === '/SuperAdminDashboard';
 
@@ -448,7 +455,7 @@ useEffect(()=>{
                   <div className="flashcardCount">{flashcardDetails.flatCount}</div>
                 </div>
                 <div className="flashcard" onClick={() => handleFlashcardClick('Meters')}>
-                  <p>Assigned Meters</p>
+                  <p>Total Meters</p>
                   <div className="flashcardCount">{flashcardDetails.assignedMeter}</div>
                 </div>
                 {/* <div className="flashcard" onClick={() => handleFlashcardClick('unAssignedMeters')}>
@@ -566,7 +573,7 @@ useEffect(()=>{
                       {assignedMeters.map((Meters, index) => (
                         <tr key={Meters.MeterId}>
                           <td>{index + 1}</td>
-                          <td onClick={()=>{setfacilityId(Meters.facilityId); }}>{Meters.facilityName}</td>
+                          <td onClick={()=>{setfacilityId(Meters.facilityId);handleFlashcardClick("detailedMeterData") }}>{Meters.facilityName}</td>
                           <td>{Meters.meterCount}</td>
                           
                           <td>
@@ -582,13 +589,14 @@ useEffect(()=>{
                 </div>
               )}
 
-{activeTable==='detailedMeterData' && (
-  <div className="detailed-meter-table">
+          {activeTable==='detailedMeterData' && (
+           <div className="detailed-meter-table">
     
     
     <table >
       <thead>
         <tr>
+          <th>S.No</th>
           <th>Building Name</th>
           <th>Floor Number</th>
           <th>Flat Number</th>
@@ -602,14 +610,10 @@ useEffect(()=>{
                           <td>{index + 1}</td>
                           <td>{Meter.buildingName}</td>
                           <td>{Meter.floorno}</td>
-                          <td>{Meter.Flatno}</td>
+                          <td>{Meter.flatno}</td>
                           <td>{Meter.username}</td>
                           
-                          <td>
-                            <button className="update_button" onClick={() => handleEditClick(Meter, 'Meter')}>
-                              Update
-                            </button>
-                          </td>
+                          
                         </tr>
                         
                       ))}
@@ -679,6 +683,17 @@ useEffect(()=>{
     </form>
   </div>
 )}
+
+<div className="search-container">
+  <input
+    type="text"
+    placeholder="Search by facility name"
+    value={searchTerm}
+    onChange={handleSearchChange}
+    className="search-bar"
+  />
+</div>
+
 {showEditForm && currentEditType === 'subAdmin' && (
   <div className="edit-form-container">
     <form onSubmit={handleUpdateSubmit} className="edit-form">
